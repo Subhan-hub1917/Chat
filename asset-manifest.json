@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Chat/static/css/main.c5cf5dcd.css",
+    "main.js": "/Chat/static/js/main.efa8c0a5.js",
+    "static/media/bootstrap-icons.woff?": "/Chat/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
+    "static/media/bootstrap-icons.woff2?": "/Chat/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
+    "index.html": "/Chat/index.html",
+    "main.c5cf5dcd.css.map": "/Chat/static/css/main.c5cf5dcd.css.map",
+    "main.efa8c0a5.js.map": "/Chat/static/js/main.efa8c0a5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c5cf5dcd.css",
+    "static/js/main.efa8c0a5.js"
+  ]
+}
