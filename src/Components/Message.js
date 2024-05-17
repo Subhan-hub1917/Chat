@@ -24,35 +24,78 @@ const Message = (props) => {
         if(msg==="" && selectedFile===null){
           return;
         }
-        if (selectedFile && msg==='') { 
-          const storageRef = ref(storage, 'chat-files/' + selectedFile.name);
-          try{
-            await  uploadBytes(storageRef, selectedFile)
-            const downloadURL = await getDownloadURL(storageRef);
-            console.log('File Selected');
-            await addDoc(MessagesRef, {
-              Message: msg,
-              messagephoto: downloadURL,
-              Senderid: auth.currentUser.uid,
-              SenderName: auth.currentUser.displayName,
-              timestamp: Timestamp.now()
-            });
+
+      //   if (selectedFile && msg==='') { 
+      //     const storageRef = ref(storage, 'chat-files/' + selectedFile.name);
+      //     try{
+      //       await  uploadBytes(storageRef, selectedFile)
+      //       const downloadURL = await getDownloadURL(storageRef);
+      //       console.log('File Selected');
+
+      //       await addDoc(MessagesRef, {
+      //         Message: msg,
+      //         messagephoto: downloadURL,
+      //         Senderid: auth.currentUser.uid,
+      //         SenderName: auth.currentUser.displayName,
+      //         timestamp: Timestamp.now()
+      //       });
             
-            console.log('Message was sent');
+      //       console.log('Message was sent');
       
+      //     }
+      //     catch(err)
+      //     {
+      //       console.error(err.message)
+      //     }
+      //   setMsg('')
+      // }
+
+      if (selectedFile && msg === '') {
+        const storageRef = ref(storage, 'chat-files/' + selectedFile.name);
+      
+        try {
+          // Upload the file to Firebase Storage
+          await uploadBytes(storageRef, selectedFile);
+      
+          // Get the download URL of the uploaded file
+          const downloadURL = await getDownloadURL(storageRef);
+      
+          let isVideo = false;
+          // Check if the URL indicates a video file based on its extension
+          const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+          if (['mp4', 'avi', 'mov', 'mkv', 'webm'].includes(fileExtension)) {
+            isVideo = true;
           }
-          catch(err)
-          {
-            console.error(err.message)
-          }
-        setMsg('')
+      
+          // Create a message object with the appropriate fields
+          const messageObject = {
+            Message: msg,
+            messagevideo: isVideo ? downloadURL : '', // If it's a video, store the URL; otherwise, leave it empty
+            messagephoto: isVideo ? '' : downloadURL, // If it's not a video, store the URL; otherwise, leave it empty
+            Senderid: auth.currentUser.uid,
+            SenderName: auth.currentUser.displayName,
+            timestamp: Timestamp.now()
+          };
+      
+          // Add the message object to Firestore
+          await addDoc(MessagesRef, messageObject);
+      
+          console.log('Message was sent');
+        } catch (err) {
+          console.error(err.message);
+        }
+      
+        setMsg('');
       }
+      
+
       if (msg && selectedFile===null) {
         try{
          
           await addDoc(MessagesRef, {
             Message: msg,
             messagephoto: "",
+            messagevideo: "",
             Senderid: auth.currentUser.uid,
             SenderName: auth.currentUser.displayName,
             timestamp: Timestamp.now()

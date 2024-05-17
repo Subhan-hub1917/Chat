@@ -7,7 +7,13 @@ import MyContext from './MyContext';
 import Home from './Pages/Home';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
+import { BrowserRouter, Route,Routes } from 'react-router-dom';
+import VideoPage from './Components/VideoPage.js';
+
+
 const App = () => {
+
+    const [userName,setUserName]=useState('User')
 
     const [exist,setExist]=useState(false)
     const [display,setDisplay]=useState(false)
@@ -20,16 +26,18 @@ const App = () => {
     });
     return(
         <>
+        <BrowserRouter>
             <MyContext.Provider value={{display,setDisplay,handleDisplay}}>
-
-            { !exist ? <SignIn/>
-             : 
-             <Home/>
-            }
-            </MyContext.Provider>
+            <Routes>
+                <Route exact path='/' element={<SignIn setUserName={setUserName}/>} />
+                <Route  path='/Home' element={<Home/>} />
+                <Route  path='/VideoPage/:room' element={<VideoPage userName={userName}/>  } />
+            </Routes>
+                </MyContext.Provider>
+        </BrowserRouter>
         </>
     );
     
 }
- 
+
 export default App;

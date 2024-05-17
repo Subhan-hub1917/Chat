@@ -1,6 +1,5 @@
 import {  useEffect, useState } from 'react';
 import { auth, db } from '../firebase'
-// import DP from '../hitman_absolution.jpg'
 import { collection, onSnapshot} from 'firebase/firestore';
 import Users from '../Components/Users';
 import Chat from '../Components/Chat';
@@ -16,7 +15,7 @@ const Home = () => {
     
     
     useEffect(()=>{
-        const MessagesRef=collection(db,chatid);
+        const MessagesRef=collection(db,chatid);                                
         onSnapshot(MessagesRef, (snapshot) => {
             setMessages(snapshot.docs.map((message) => ({ ...message.data(), id: message.id })));
           });

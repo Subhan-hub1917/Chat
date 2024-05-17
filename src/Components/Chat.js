@@ -12,7 +12,7 @@ const Chat = (props) => {
         const MessagesRef=collection(db,chatid);
         onSnapshot(MessagesRef, (snapshot) => {
             setMessages(snapshot.docs.map((message) => ({ ...message.data(), id: message.id })));
-          });
+           });
     })
     
 
