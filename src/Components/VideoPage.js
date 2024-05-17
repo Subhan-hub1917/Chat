@@ -6,12 +6,14 @@ const  VideoPage=(props)=> {
   const {chatid}=useParams();
   const {userName}=props;
   
-  const roomID=chatid;
+  // const roomID=chatid;
+  const roomID= 'Join'
+  const name=userName;
   let myMeeting = async (element) => {
  // generate Kit Token
   const appID = 2008783038;
   const serverSecret = "b1bcb2c8080fe2d37ce9a8ddf021efbe";
-  const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID,  Date.now().toString(),  userName );
+  const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID,  Date.now().toString(),  name );
 
 
  // Create instance object from Kit Token.

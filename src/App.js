@@ -29,7 +29,7 @@ const App = () => {
         <BrowserRouter>
             <MyContext.Provider value={{display,setDisplay,handleDisplay}}>
             <Routes>
-                <Route exact path='/' element={<SignIn setUserName={setUserName}/>} />
+                <Route exact path='/Chat' element={<SignIn setUserName={setUserName}/>} />
                 <Route  path='/Home' element={<Home/>} />
                 <Route  path='/VideoPage/:room' element={<VideoPage userName={userName}/>  } />
             </Routes>
